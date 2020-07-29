@@ -27,6 +27,7 @@ def parse(contestId):
     info = []
     
     serial = 1
+    okay = 0
 
     for i in range(len(cur)):
         cur_info = {}
@@ -37,6 +38,9 @@ def parse(contestId):
         # print(cur[i]["party"]["members"][0]["handle"], cur[i]["rank"], int(cur[i]["points"]), cnt)
         if cur[i]["rank"] == 0:
             cur[i]["rank"] = "UPSOLVER"
+            if(not okay):
+                serial = 1
+                okay = 1
         cur_info = {'serial': serial, 'handle' : cur[i]["party"]["members"][0]["handle"], 'rank': cur[i]["rank"], 'points': int(cur[i]["points"]), 'cnt': cnt}
         info.append(cur_info)
         serial = serial + 1
