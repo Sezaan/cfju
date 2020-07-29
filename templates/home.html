@@ -31,7 +31,8 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                  <th scope="col" class="font-weight-bold">Rank</th>
+                  <th scope="col" class="font-weight-bold">Serial</th>
+                  <th scope="col" class="font-weight-bold">CF Rank</th>
                   <th scope="col" class="font-weight-bold">Handle</th>
                   <th scope="col" class="font-weight-bold">Points</th>
                   <th scope="col" class="font-weight-bold">Problems Solved</th>
@@ -41,6 +42,7 @@
             <tbody>
                 {% for user in data %}
                 <tr>
+                  <td class="font-weight-bold">{{ user['serial'] }}</td>
                   <td class="font-weight-bold">{{ user['rank'] }}</td>
                   <td class="font-weight-bold">{{ user['handle'] }}</td>
                   <td class="font-weight-bold">{{ user['points'] }}</td>
