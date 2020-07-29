@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
+    <title>cfju</title>
+    <style>
+        .container {
+            padding: 20px;
+        }
+        body {
+            font-family: 'Comfortaa', cursive;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="POST">
+            <input class="form-control" type="text" name="contestid" placeholder="Contest ID. You should put contest id, not contest number. (https://codeforces.com/contest/id) put the id from contest link">
+            <br>
+            <div class="text-center"><button type="submit" class="btn btn-success">Smash</button></div>
+            <br>
+        </form>
+    </div>
+    <div class="text-center">
+        <h1>Ranking for # {{ id }} round</h1>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th scope="col" class="font-weight-bold">Rank</th>
+                  <th scope="col" class="font-weight-bold">Handle</th>
+                  <th scope="col" class="font-weight-bold">Points</th>
+                  <th scope="col" class="font-weight-bold">Problems Solved</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for user in data %}
+                <tr>
+                  <td class="font-weight-bold">{{ user['rank'] }}</td>
+                  <td class="font-weight-bold">{{ user['handle'] }}</td>
+                  <td class="font-weight-bold">{{ user['points'] }}</td>
+                  <td class="font-weight-bold">{{ user['cnt'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
