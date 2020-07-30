@@ -53,8 +53,15 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def hello():
     cur = {}
+    errors = []
+    id = ""
     if(request.method == 'POST'):
-        cur = parse(request.form.get('contestid'))
-    return render_template('home.html', data = cur, id = request.form.get('contestid'))
+        check = request.form.get('contestid')
+        if(len(check) == 0 or int(check) <= 0):
+            errors.append("Invalid contest ID.")
+        else:
+            cur = parse(request.form.get('contestid'))
+            id = request.form.get('contestid')
+    return render_template('home.html', data = cur, id = id, errors = errors)
 if __name__ == '__main__':
     app.run()

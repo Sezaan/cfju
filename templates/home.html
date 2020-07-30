@@ -25,7 +25,13 @@
         </form>
     </div>
     <div class="text-center">
-        <h1>Ranking for # {{ id }} round</h1>
+        {% if errors|length > 0 %}
+        <h1 class="text-danger">{{ errors[0] }}</h1>
+        {% elif id == "" %}
+        <h1 class="text-success">Welcome to JU CF ranking.</h1>
+        {% else %}
+        <h1>Ranking for #{{ id }} round.</h1>
+        {% endif %}
     </div>
     <div class="container">
         <table class="table table-striped">
