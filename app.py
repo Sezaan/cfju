@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 
 import requests, bs4, json
-
+errors = []
 def parse(contestId):
     response = requests.get('https://codeforces.com/ratings/organization/125')
     html = bs4.BeautifulSoup(response.text, 'html.parser')
@@ -21,7 +21,9 @@ def parse(contestId):
     response = requests.get(url = url, params = params)
 
     parsed_json = json.loads(response.text)
-
+    if parsed_json["status"] == "FAILED":
+        errors.append("Invalid Contest ID.")
+        return
     cur = parsed_json["result"]["rows"]
 
     info = []
@@ -53,7 +55,6 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def hello():
     cur = {}
-    errors = []
     id = ""
     if(request.method == 'POST'):
         check = request.form.get('contestid')
