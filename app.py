@@ -57,9 +57,17 @@ def hello():
     id = ""
     if(request.method == 'POST'):
         check = request.form.get('contestid')
-        if(len(check) == 0 or int(check) <= 0):
-            errors.append("Invalid contest ID.")
-        else:
+        try:
+            check = int(check)
+        except ValueError:
+            errors.append("Invalid Contest ID.")
+        
+        if(type(check) == str):
+            errors.append("Invalid Contest ID.")
+        elif(check <= 0):
+            errors.append("Invalid Contest ID.")
+
+        if(len(errors) == 0):
             cur = parse(request.form.get('contestid'))
             id = request.form.get('contestid')
     return render_template('home.html', data = cur, id = id, errors = errors)
