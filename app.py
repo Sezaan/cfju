@@ -3,17 +3,20 @@ import requests, bs4, json
 
 errors = []
 def parse(contestId):
-    response = requests.get('https://codeforces.com/ratings/organization/125')
-    html = bs4.BeautifulSoup(response.text, 'html.parser')
+    # response = requests.get('https://codeforces.com/ratings/organization/125')
+    # html = bs4.BeautifulSoup(response.text, 'html.parser')
 
-    lines = html.select('td > .rated-user')
-    lines = lines[20:]
+    # lines = html.select('td > .rated-user')
+    # lines = lines[20:]
 
-    handles = []
-    for line in lines:
-        handles.append(line.getText())
+    # handles = []
+    # for line in lines:
+        # handles.append(line.getText())
 
-    handles = ';'.join(handles)
+    # handles = ';'.join(handles)
+    handles = ""
+    with open('users.txt', 'r') as f:
+        handles = f.read()
 
     url = 'https://codeforces.com/api/contest.standings'
     params = {"contestId" : int(contestId), "handles" : handles, "showUnofficial" : True}

@@ -1,9 +1,25 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 
+import requests, bs4
+
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=1)
+@sched.scheduled_job('interval', max_instances=5, seconds=1)
 def job():
-    print('This job is run every minute.')
+    response = requests.get('https://codeforces.com/ratings/organization/125')
+    html = bs4.BeautifulSoup(response.text, 'html.parser')
+
+    lines = html.select('td > .rated-user')
+    lines = lines[20:]
+
+    handles = []
+    for line in lines:
+        handles.append(line.getText())
+
+    handles = ';'.join(handles)
+    with open('users.txt', 'w') as f:
+        f.write(handles)
+    
+    print("done")
 
 sched.start()

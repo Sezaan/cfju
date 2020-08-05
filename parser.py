@@ -34,9 +34,8 @@ def parse():
         cur_info = {'handle' : cur[i]["party"]["members"][0]["handle"], 'rank': cur[i]["rank"], 'points': int(cur[i]["points"]), 'cnt': cnt}
         info.append(cur_info)
 
-    return info
+    return handles
 
 if __name__ == '__main__':
     cur = parse()
-    for d in cur:
-        print(d['handle'])
+    print(cur)
