@@ -4,7 +4,7 @@ import requests, bs4
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', max_instances=5, seconds=1)
+@sched.scheduled_job('interval', max_instances=5, hours=1)
 def job():
     response = requests.get('https://codeforces.com/ratings/organization/125')
     html = bs4.BeautifulSoup(response.text, 'html.parser')
