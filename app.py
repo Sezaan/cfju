@@ -27,7 +27,7 @@ def parse(contestId):
 
     parsed_json = json.loads(response.text)
     if parsed_json["status"] == "FAILED":
-        errors.append("Invalid Contest ID.")
+        errors.append("API call returned FAILED.")
     else:
         cur = parsed_json["result"]["rows"]
 
@@ -59,6 +59,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
+    errors.clear()
     cur = []
     id = ""
     if(request.method == 'POST'):
@@ -66,16 +67,20 @@ def hello():
         try:
             check = int(check)
         except ValueError:
-            errors.append("Invalid Contest ID.")
+            errors.append("Number is a string.")
         
         if(type(check) == str):
-            errors.append("Invalid Contest ID.")
+            errors.append("Input is a string.")
         elif(check <= 0):
-            errors.append("Invalid Contest ID.")
+            errors.append("Input is <= 0")
 
         if(len(errors) == 0):
             cur = parse(request.form.get('contestid'))
             id = request.form.get('contestid')
+
     return render_template('home.html', data = cur, id = id, errors = errors)
+
 if __name__ == '__main__':
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run()
