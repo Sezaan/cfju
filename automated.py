@@ -20,6 +20,7 @@ def job():
     with open('users.txt', 'w') as f:
         f.write(handles)
     
-    print("done")
+    with open('users.txt', 'r') as f:
+        print(f.read())
 
 sched.start()
