@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-
 import requests, bs4, json
+
 errors = []
 def parse(contestId):
     response = requests.get('https://codeforces.com/ratings/organization/125')
