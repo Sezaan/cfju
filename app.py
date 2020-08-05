@@ -20,11 +20,13 @@ def parse(contestId):
 
     response = requests.get(url = url, params = params)
 
+    cur = {}
+
     parsed_json = json.loads(response.text)
     if parsed_json["status"] == "FAILED":
         errors.append("Invalid Contest ID.")
-        return
-    cur = parsed_json["result"]["rows"]
+    else:
+        cur = parsed_json["result"]["rows"]
 
     info = []
     
