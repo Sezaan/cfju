@@ -27,7 +27,7 @@ def parse(contestId):
 
     parsed_json = json.loads(response.text)
     if parsed_json["status"] == "FAILED":
-        errors.append("API call returned FAILED.")
+        errors.append("Invalid Contest ID. (Contest does not exist yet.)")
     else:
         cur = parsed_json["result"]["rows"]
 
@@ -67,12 +67,12 @@ def hello():
         try:
             check = int(check)
         except ValueError:
-            errors.append("Number is a string.")
+            errors.append("Invalid Contest ID. (Not a integer.)")
         
         if(type(check) == str):
-            errors.append("Input is a string.")
+            errors.append("Invalid Contest ID. (Not a integer)")
         elif(check <= 0):
-            errors.append("Input is <= 0")
+            errors.append("Invalid Contest ID. (ID can't be negative or 0)")
 
         if(len(errors) == 0):
             cur = parse(request.form.get('contestid'))
