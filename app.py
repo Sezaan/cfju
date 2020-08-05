@@ -59,7 +59,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
-    cur = {}
+    cur = []
     id = ""
     if(request.method == 'POST'):
         check = request.form.get('contestid')
